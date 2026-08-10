@@ -143,7 +143,7 @@ export default function Tracker() {
       <div style={{ maxWidth: 780, margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
           <Dumbbell size={22} color="#6b8a99" />
-          <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>Lean Bulk Log</h1>
+          <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>Bulk Track</h1>
         </div>
         <p style={{ color: '#7a828d', fontSize: 13, margin: '2px 0 22px' }}>
           {sorted.length} {sorted.length === 1 ? 'záznam' : sorted.length < 5 ? 'záznamy' : 'záznamů'} · cíl +0,25–0,5 kg/týden
