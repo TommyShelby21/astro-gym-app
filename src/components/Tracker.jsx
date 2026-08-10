@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Plus, Trash2, TrendingUp, TrendingDown, Minus, Settings2, Dumbbell } from 'lucide-react';
+import WorkoutTracker from './WorkoutTracker.jsx';
 
 const DEFAULT_TARGETS = { calories: 3075, protein: 165, fat: 75 };
 
@@ -274,6 +275,8 @@ export default function Tracker() {
             </div>
           )}
         </div>
+
+        <WorkoutTracker />
       </div>
     </div>
   );

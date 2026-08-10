@@ -4,9 +4,10 @@ export const prerender = false;
 
 const BLOB_PATH = 'leanbulk/targets.json';
 const DEFAULT_TARGETS = { calories: 3075, protein: 165, fat: 75 };
+const BLOB_TOKEN = import.meta.env.BLOB_READ_WRITE_TOKEN;
 
 async function readTargets() {
-  const { blobs } = await list({ prefix: BLOB_PATH });
+  const { blobs } = await list({ prefix: BLOB_PATH, token: BLOB_TOKEN });
   const match = blobs.find((b) => b.pathname === BLOB_PATH);
   if (!match) return DEFAULT_TARGETS;
   const res = await fetch(match.url, { cache: 'no-store' });
@@ -19,6 +20,7 @@ async function writeTargets(targets) {
     access: 'public',
     contentType: 'application/json',
     allowOverwrite: true,
+    token: BLOB_TOKEN,
   });
 }
 

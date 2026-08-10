@@ -1,6 +1,6 @@
 # Lean Bulk Log
 
-Astro + React tracker pro sledování váhy, kalorií a bílkovin s automatickým
+FULL AI appka. Astro + React tracker pro sledování váhy, kalorií a bílkovin s automatickým
 doporučením, kdy přidat/ubrat kalorie. Data se ukládají jako JSON přes
 Vercel Blob storage.
 
