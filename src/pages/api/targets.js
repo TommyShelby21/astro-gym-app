@@ -3,7 +3,7 @@ import { put, list } from '@vercel/blob';
 export const prerender = false;
 
 const BLOB_PATH = 'leanbulk/targets.json';
-const DEFAULT_TARGETS = { calories: 3075, protein: 165, fat: 75 };
+const DEFAULT_TARGETS = { calories: 'Střední' };
 const BLOB_TOKEN = import.meta.env.BLOB_READ_WRITE_TOKEN;
 
 async function readTargets() {
@@ -34,9 +34,7 @@ export async function GET() {
 export async function POST({ request }) {
   const body = await request.json();
   const targets = {
-    calories: Number(body.calories) || DEFAULT_TARGETS.calories,
-    protein: Number(body.protein) || DEFAULT_TARGETS.protein,
-    fat: Number(body.fat) || DEFAULT_TARGETS.fat,
+    calories: body.calories || DEFAULT_TARGETS.calories,
   };
   await writeTargets(targets);
   return new Response(JSON.stringify(targets), {

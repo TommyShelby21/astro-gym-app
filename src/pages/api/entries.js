@@ -32,7 +32,7 @@ export async function GET() {
 
 export async function POST({ request }) {
   const body = await request.json();
-  const { date, weight, calories, protein, fat } = body;
+  const { date, weight, calories } = body;
 
   if (!date || typeof weight !== 'number' || weight <= 0) {
     return new Response(JSON.stringify({ error: 'Invalid entry' }), { status: 400 });
@@ -40,7 +40,7 @@ export async function POST({ request }) {
 
   const entries = await readEntries();
   const withoutSameDate = entries.filter((e) => e.date !== date);
-  const next = [...withoutSameDate, { date, weight, calories: calories ?? null, protein: protein ?? null, fat: fat ?? null }].sort(
+  const next = [...withoutSameDate, { date, weight, calories: calories ?? 'Střední' }].sort(
     (a, b) => a.date.localeCompare(b.date)
   );
 
