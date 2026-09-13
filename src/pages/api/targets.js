@@ -7,13 +7,21 @@ const DEFAULT_TARGETS = { calories: 'Střední' };
 const BLOB_TOKEN = import.meta.env.BLOB_READ_WRITE_TOKEN;
 
 async function readTargets() {
-  const { blobs } = await list({ prefix: BLOB_PATH, token: BLOB_TOKEN });
-  const match = blobs.find((b) => b.pathname === BLOB_PATH);
+  console.log('--- Reading targets ---');
+  const { blobs } = await list({ token: BLOB_TOKEN });
+  const sortedBlobs = blobs
+    .filter((b) => b.pathname === BLOB_PATH)
+    .sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+
+  const match = sortedBlobs[0];
   if (!match) return DEFAULT_TARGETS;
+
+  console.log('Found latest targets blob:', match.url);
   const res = await fetch(match.url, { cache: 'no-store' });
   if (!res.ok) return DEFAULT_TARGETS;
   return res.json();
 }
+
 
 async function writeTargets(targets) {
   await put(BLOB_PATH, JSON.stringify(targets), {

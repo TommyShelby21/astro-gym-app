@@ -6,9 +6,16 @@ const BLOB_PATH = 'leanbulk/workouts.json';
 const BLOB_TOKEN = import.meta.env.BLOB_READ_WRITE_TOKEN;
 
 async function readSets() {
-  const { blobs } = await list({ prefix: BLOB_PATH, token: BLOB_TOKEN });
-  const match = blobs.find((b) => b.pathname === BLOB_PATH);
+  console.log('--- Reading workouts ---');
+  const { blobs } = await list({ token: BLOB_TOKEN });
+  const sortedBlobs = blobs
+    .filter((b) => b.pathname === BLOB_PATH)
+    .sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+
+  const match = sortedBlobs[0];
   if (!match) return [];
+
+  console.log('Found latest workouts blob:', match.url);
   const res = await fetch(match.url, { cache: 'no-store' });
   if (!res.ok) return [];
   return res.json();
