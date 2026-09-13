@@ -49,6 +49,7 @@ export async function POST({ request }) {
   const { date, weight, calories } = body;
 
   const entries = await readEntries();
+
   const withoutSameDate = entries.filter((e) => e.date !== date);
   const next = [...withoutSameDate, {
     date,
@@ -56,12 +57,13 @@ export async function POST({ request }) {
     calories: calories ?? "Střední",
   }].sort((a, b) => a.date.localeCompare(b.date));
 
-
+  await writeEntries(next);
 
   return new Response(JSON.stringify(next), {
     headers: { "Content-Type": "application/json" },
   });
 }
+
 
 export async function DELETE({ request }) {
   const { date } = await request.json();
